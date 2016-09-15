@@ -1,6 +1,8 @@
 defmodule KafkaEx do
   @moduledoc File.read!(Path.expand("../README.md", __DIR__))
 
+  import Supervisor.Spec
+
   use Application
   alias KafkaEx.Config
   alias KafkaEx.Protocol.ConsumerMetadata, as: ConsumerMetadataResponse
