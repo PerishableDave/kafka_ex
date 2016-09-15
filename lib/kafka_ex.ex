@@ -347,17 +347,7 @@ Optional arguments(KeywordList)
 
 #OTP API
   def start(_type, _args) do
-    max_restarts = Application.get_env(:kafka_ex, :max_restarts, 10)
-    max_seconds = Application.get_env(:kafka_ex, :max_seconds, 60)
-    {:ok, pid}     = KafkaEx.Supervisor.start_link(Config.server_impl, max_restarts, max_seconds)
-
-    if Application.get_env(:kafka_ex, :disable_default_worker) == true do
-      {:ok, pid}
-    else
-      case KafkaEx.create_worker(Config.default_worker, []) do
-        {:error, reason} -> {:error, reason}
-        {:ok, _}         -> {:ok, pid}
-      end
-    end
+    children = []
+    Supervisor.start_link(children, [])
   end
 end
